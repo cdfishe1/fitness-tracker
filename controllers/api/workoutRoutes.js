@@ -22,15 +22,34 @@ router.post("/", async (req, res)=> {
 })
 
 //adds new exercise
-router.put("/:id", ({ body, params }, res) => {
-
-    db.Workout.findByIdAndUpdate(params.id, { $push: { exercises: body } })
+router.put("/:id", async ({ body, params }, res) => {
+    try {
+        await db.Workout.findByIdAndUpdate(params.id, { $push: { exercises: body } })
         .then((updateWorkout) => {
             res.json(updateWorkout);
         })
-        .catch((err) => {
-            res.json(err);
-        });
+    }
+    catch (err) {
+        res.json(err);
+    }
+    
+});
+
+//get all previous exercises for stats render
+router.get('/range', async (req, res) => {
+    try {
+        await db.Workout.find({})
+        .sort({ _id: 1 })
+        .populate("exercises")
+        .then(previous => {
+            res.json(previous);
+        })
+    }
+
+    catch (err) {
+        res.json(err);
+    }
+    
 });
 
 module.exports = router;
