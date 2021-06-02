@@ -39,7 +39,7 @@ router.put("/:id", async ({ body, params }, res) => {
     
 });
 
-//get all previous workouts for stats render
+//get 7 days previous workouts for stats render
 router.get('/range', async (req, res) => {
     try {
         await db.Workout.find({})
