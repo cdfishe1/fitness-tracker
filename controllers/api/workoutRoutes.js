@@ -44,9 +44,10 @@ router.get('/range', async (req, res) => {
     try {
         await db.Workout.find({})
         .sort({ _id: 1 })
+        .limit(7)
         .populate("exercises")
-        .then(previous => {
-            res.json(previous);
+        .then(previousWeek => {
+            res.json(previousWeek);
         })
     }
 
