@@ -54,7 +54,7 @@ const WorkoutSchema = new Schema({
     virtuals: true 
     }
   });
-  
+ 
 WorkoutSchema
 .virtual('totalDuration')
 .get(function () {
